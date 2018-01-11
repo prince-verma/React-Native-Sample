@@ -4,14 +4,14 @@ export default function displaySnackbar(message, confirmText, onConfirm) {
   if (message) {
     showSnackBar({
       message,
-      textColor: '#FFF',
+      textColor: '#46407B',
       position: 'top',
       onConfirm: confirmText && onConfirm,
       confirmText: onConfirm && confirmText ? confirmText : '',
-      buttonColor: '#03a9f4',
+      buttonColor: '#46407B',
       duration: 4000,
       animationTime: 250,
-      backgroundColor: "#323232",
+      backgroundColor: "#FFF",
     });
   }
 }

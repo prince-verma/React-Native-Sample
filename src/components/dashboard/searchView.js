@@ -40,9 +40,9 @@ export default class SearchView extends React.Component {
     return (
       <View style={[styles.mb15]}>
         <Input
-          width={width-30}
+          width={width - 30}
           borderBottomColor={'#48487B'}
-          placeholder={'search'} placeholderTextColor={'rgba(72,72,123,0.5)'}
+          placeholder={'Search'} placeholderTextColor={'rgba(72,72,123,0.5)'}
           inputStyle={[styles.cAppDark]}
           icon={{name: "search", color: '#48487B', size: 24}}
           onChangeText={this.onChangeText}/>

@@ -7,7 +7,7 @@ import styles from "../../../styles/styles.native";
 export default {
   Transparent: (props) => {
     let {text = "", onPress, icon = "", iconSize = 24, ...otherProps} = props;
-    let textBoxStyle = [styles.cWhite, styles.font16, styles.bold];
+    let textBoxStyle = [styles.cWhite, styles.font16, styles.bold, styles.mh10];
     let iconStyle = [styles.cWhite, styles.bold];
     return (
       <Button transparent onPress={onPress} {...otherProps}>

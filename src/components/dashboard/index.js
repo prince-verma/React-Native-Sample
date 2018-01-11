@@ -5,7 +5,7 @@ import styles from '../../styles/styles.native';
 
 import Authenticate from "../authComponent";
 import SearchView from "./searchView";
-import ListItem from "./listItem";
+import RenderRow from "./renderRow";
 
 export default class Dashboard extends React.Component {
   static navigationOptions = {
@@ -23,8 +23,10 @@ export default class Dashboard extends React.Component {
   }
 
   logout = () => {
-    Storage.remove(USER_KEY);
-    this.props.navigation.dispatch(getResetAction("Login"));
+    showSnackbar("Are you sure to logout from application.","YES",()=>{
+      Storage.remove(USER_KEY);
+      this.props.navigation.dispatch(getResetAction("Login"));
+    });
   };
 
   onChange = async (value) => {
@@ -62,7 +64,7 @@ export default class Dashboard extends React.Component {
   renderItem = ({item, index}) => {
     const {data} = this.state;
     return (
-      <ListItem
+      <RenderRow
         item={item}
         selected={this.state.selectedIndex === index}
         index={index}
@@ -87,7 +89,7 @@ export default class Dashboard extends React.Component {
               onPress={this.logout}/>
           </View>
           <SearchView username={username} onChange={this.onChange}/>
-          <View style={[styles.f1]}>
+          <View style={[styles.f1, styles.mb10]}>
             <FlatList
               extraData={selectedIndex}
               data={data}
