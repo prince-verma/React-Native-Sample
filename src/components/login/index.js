@@ -1,12 +1,9 @@
 import React from 'react';
-import {Text, View, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
+import {Text, View, Keyboard, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
 import {Button} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from '../../styles/styles.native';
-import {Input, Api, Storage, USER_KEY} from '../../common';
-import {NavigationActions} from "react-navigation";
-
-const dismissKeyboard = require('dismissKeyboard');
+import {Input, Api, Storage, USER_KEY, showSnackbar, getResetAction} from '../../common';
 
 //Luke Skywalker, 19BBY
 export default class Login extends React.Component {
@@ -24,10 +21,19 @@ export default class Login extends React.Component {
   onChange = (key, value) => this.state[key] = value;
 
   onLogin = () => {
+    const {navigation} = this.props;
     let {username, password} = this.state;
     username = username ? username.trim() : "";
     password = password ? password.trim() : "";
     // this.setState({isFetching: true});
+
+    if (!username) {
+      return showSnackbar("Please provide username.");
+    }
+    if (!password) {
+      return showSnackbar("Please provide password.");
+    }
+
     return Api.get(`https://swapi.co/api/people/?search=${username}&format=json`)
       .then(responseJson => responseJson.results)
       .then(result => {
@@ -38,11 +44,7 @@ export default class Login extends React.Component {
           let isLoggedIn = true;
 
           Storage.set(USER_KEY, result[0].name).then(() => {
-            const resetAction = NavigationActions.reset({
-              index: 0,
-              actions: [NavigationActions.navigate({routeName: 'Dashboard'})]
-            });
-            this.props.navigation.dispatch(resetAction);
+            navigation.dispatch(getResetAction("Dashboard"));
           }).catch((err) => {
             isLoggedIn = false;
             this.setState({isFetching: false, isLoggedIn});
@@ -58,9 +60,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={() => {
-        dismissKeyboard()
-      }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={[{flex: 1}, styles.bgApp, styles.ph20]}>
 
           <View style={[styles.pv20]}>
