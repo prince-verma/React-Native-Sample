@@ -11,14 +11,14 @@ export default class Authenticate extends React.Component {
   }
 
   async componentWillMount() {
+    let {isLogin} = this.state;
     try {
       let user = await Storage.get(USER_KEY);
-      if (user) {
-        this.setState({isLogin: true})
-      }
+      isLogin = !!user;
     } catch (err) {
-      console.warn("err", err)
+      isLogin = false;
     }
+    this.setState({isLogin});
   }
 
   render() {
