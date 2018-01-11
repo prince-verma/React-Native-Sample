@@ -17,7 +17,8 @@ export default class Dashboard extends React.Component {
     this.state = {
       selectedIndex: "",
       data: [],
-      isFetching: false
+      fetchingData: false,
+      username: ""
     };
   }
 
@@ -26,29 +27,37 @@ export default class Dashboard extends React.Component {
     this.props.navigation.dispatch(getResetAction("Login"));
   };
 
-  onChange = async value => {
-    this.setState({isFetching: true});
-    try {
-      let response = await Api.get(`https://swapi.co/api/planets/?search=${value}&format=json`);
-      let results = response.results ? response.results : [];
-      results = results.sort((a, b) => {
-        let aPopulation = isNaN(a.population) ? 0 : a.population;
-        let bPopulation = isNaN(b.population) ? 0 : b.population;
-        return (bPopulation - aPopulation)
-      });
-
-      this.setState({isFetching: false, data: results, selectedIndex: false});
-    } catch (err) {
-      this.setState({isFetching: false});
-      console.error(err);
+  onChange = async (value) => {
+    if (value || value === "") {
+      try {
+        this.setState({fetchingData: true});
+        let response = await Api.get(`https://swapi.co/api/planets/?search=${value.trim()}&format=json`);
+        let results = response.results ? response.results : [];
+        results = results.sort((a, b) => {
+          let aPopulation = isNaN(a.population) ? 0 : a.population;
+          let bPopulation = isNaN(b.population) ? 0 : b.population;
+          return (bPopulation - aPopulation)
+        });
+        this.setState({fetchingData: false, data: results, selectedIndex: false});
+      } catch (err) {
+        this.setState({fetchingData: false});
+      }
     }
   };
 
   async componentWillMount() {
-    await this.onChange("");
+    let {username} = this.state;
+    try {
+      username = await Storage.get(USER_KEY);
+    } catch (err) {
+
+    }
+    this.setState({username}, async () => {
+      await this.onChange("");
+    });
   }
 
-  keyExtractor = item => item.name;
+  getNameKey = item => item.name;
   onPressItem = selectedIndex => this.setState({selectedIndex});
   renderItem = ({item, index}) => {
     const {data} = this.state;
@@ -63,13 +72,12 @@ export default class Dashboard extends React.Component {
   };
 
   render() {
-    const {selectedIndex, data, isFetching} = this.state;
-    const {username} = this.props;
+    const {selectedIndex, data, fetchingData, username} = this.state;
 
     return (
       <Authenticate navigation={this.props.navigation}>
         <View style={styles.f1}>
-          <View style={[styles.header]} key="search view">
+          <View style={[styles.header]}>
             <Button.Transparent text="Logout" onPress={this.logout}/>
           </View>
           <SearchView username={username} onChange={this.onChange}/>
@@ -77,16 +85,16 @@ export default class Dashboard extends React.Component {
             <FlatList
               extraData={selectedIndex}
               data={data}
-              keyExtractor={this.keyExtractor}
+              keyExtractor={this.getNameKey}
               renderItem={this.renderItem}
             />
             {
-              (!isFetching && data.length === 0) ?
+              (!fetchingData && data.length === 0) ?
                 <View style={[StyleSheet.absoluteFill, styles.center]}>
                   <Text>Nothing to show here.</Text>
                 </View> : null
             }
-            {isFetching ? <ActivityIndicator style={StyleSheet.absoluteFill}/> : null}
+            {fetchingData ? <ActivityIndicator color="#46407B" style={[StyleSheet.absoluteFill]}/> : null}
           </View>
         </View>
       </Authenticate>

@@ -8,7 +8,8 @@ export default class SearchView extends React.Component {
     super(props);
     this.state = {};
     this.count = 0;
-    this.interval = undefined;
+    this.ourterTimeout = undefined;
+    this.innerTimeout = undefined;
   }
 
   shouldComponentUpdate() {
@@ -20,15 +21,19 @@ export default class SearchView extends React.Component {
       showSnackbar("You can not make more then 15 searches in a minute");
       return;
     }
-    this.interval && clearTimeout(this.interval);
-    this.interval = setTimeout(() => {
-      this.interval = undefined;
+    this.ourterTimeout && clearTimeout(this.ourterTimeout);
+    this.ourterTimeout = setTimeout(() => {
+      this.innerTimeout && clearTimeout(this.innerTimeout);
+      this.ourterTimeout = undefined;
+
       this.count++;
       this.props.onChange(value);
-      setTimeout(() => {
+
+      this.innerTimeout = setTimeout(() => {
+        this.innerTimeout = undefined;
         this.count = 0;
       }, 60 * 1000);
-    }, 250);
+    }, 200);
   };
 
   render() {
@@ -39,7 +44,7 @@ export default class SearchView extends React.Component {
           placeholder={'search'} placeholderTextColor={'rgba(72,72,123,0.5)'}
           inputStyle={[styles.cAppDark]}
           icon={{name: "search", color: '#48487B', size: 24}}
-          onChangeText={this.onChangeText()}/>
+          onChangeText={this.onChangeText}/>
       </View>
     );
   }

@@ -22,7 +22,7 @@ export default class Authenticate extends React.Component {
   }
 
   render() {
-    let {isLogin, username} = this.state;
+    let {isLogin} = this.state;
 
     if (!isLogin) {
       return <Login navigation={this.props.navigation}/>
