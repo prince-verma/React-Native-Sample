@@ -1,9 +1,8 @@
 import React from 'react';
 import {Text, View, Keyboard, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
-import {Button} from 'native-base';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import styles from '../../styles/styles.native';
-import {Input, Api, Storage, USER_KEY, showSnackbar, getResetAction} from '../../common';
+import {Input, Api, Storage, USER_KEY, showSnackbar, getResetAction, Button} from '../../common';
 
 //Luke Skywalker, 19BBY
 export default class Login extends React.Component {
@@ -86,10 +85,7 @@ export default class Login extends React.Component {
                  }}/>
 
           <View style={[styles.mv10]}>
-            <Button transparent onPress={() => {
-            }}>
-              <Text style={[styles.cWhite, styles.font16, styles.bold]}>Forgot password?</Text>
-            </Button>
+            <Button.Transparent text={"Forgot Password?"}/>
           </View>
 
           <TouchableOpacity

@@ -6,24 +6,23 @@ export default class Authenticate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: false
+      isLogin: false, username: ""
     }
   }
 
   async componentWillMount() {
-    let {isLogin} = this.state;
+    let {isLogin, username} = this.state;
     try {
-      let user = await Storage.get(USER_KEY);
-      isLogin = !!user;
+      username = await Storage.get(USER_KEY);
+      isLogin = !!username;
     } catch (err) {
       isLogin = false;
     }
-    this.setState({isLogin});
+    this.setState({isLogin, username});
   }
 
   render() {
-    let {isLogin} = this.state;
-
+    let {isLogin, username} = this.state;
 
     if (!isLogin) {
       return <Login navigation={this.props.navigation}/>

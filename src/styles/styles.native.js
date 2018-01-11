@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions} from 'react-native';
+
 const {width} = Dimensions.get('window');
 
 module.exports = StyleSheet.create({
@@ -139,6 +140,11 @@ module.exports = StyleSheet.create({
   font26: {fontSize: 26},
   font28: {fontSize: 28},
 
+  f1: {flex: 1},
+  f2: {flex: 2},
+  f3: {flex: 3},
+  f4: {flex: 4},
+
   bold: {fontWeight: 'bold'},
 
   cBlack: {color: '#000000'},
@@ -261,5 +267,10 @@ module.exports = StyleSheet.create({
   square90: {width: 90, height: 90},
   square100: {width: 100, height: 100},
 
-  clear: {height: 1, backgroundColor: '#E4E4E4', marginVertical: 8}
+  clear: {height: 1, backgroundColor: '#E4E4E4', marginVertical: 8},
+
+  header: {
+    backgroundColor: "#48487B",
+    alignItems: "flex-end"
+  }
 });
