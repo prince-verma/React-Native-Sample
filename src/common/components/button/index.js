@@ -1,3 +1,4 @@
+import React from 'react';
 import {Text, View} from 'react-native';
 import {Button} from 'native-base';
 import styles from "../../../styles/styles.native";

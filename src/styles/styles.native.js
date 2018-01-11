@@ -150,6 +150,7 @@ module.exports = StyleSheet.create({
   cBlack: {color: '#000000'},
   cBlue: {color: '#2196f3'},
   cWhite: {color: '#FFFFFF'},
+  cGrey: {color: '#e6e6e6'},
   cRed: {color: '#eb0a0a'},
   cApp: {color: '#46407B'},
   cAppDark: {color: '#48487B'},
@@ -175,10 +176,9 @@ module.exports = StyleSheet.create({
   flexRow: {flexDirection: 'row'},
   flexColumn: {flexDirection: 'column'},
 
-  right0: {
-    position: 'absolute',
-    right: 0
-  },
+  right0: {position: 'absolute', right: 0},
+  right10: {position: 'absolute', right: 10},
+  right15: {position: 'absolute', right: 15},
 
   absolute: {position: 'absolute'},
 
@@ -267,10 +267,11 @@ module.exports = StyleSheet.create({
   square90: {width: 90, height: 90},
   square100: {width: 100, height: 100},
 
-  clear: {height: 1, backgroundColor: '#E4E4E4', marginVertical: 8},
+  clear: {height: 1, backgroundColor: '#46407B', marginVertical: 2},
 
   header: {
-    backgroundColor: "#48487B",
+    backgroundColor: "#46407B",
+    flexDirection:"row",
     alignItems: "flex-end"
   }
 });

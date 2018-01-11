@@ -5,7 +5,7 @@ import styles from '../../styles/styles.native';
 
 export default class SearchView extends React.Component {
   constructor(props) {
-    super(prope);
+    super(props);
     this.state = {};
     this.count = 0;
     this.interval = undefined;
@@ -33,12 +33,12 @@ export default class SearchView extends React.Component {
 
   render() {
     return (
-      <View style={styles.f1}>
+      <View style={[styles.mb15]}>
         <Input
-          borderBottomColor={'#FFF'} secureTextEntry={true}
-          placeholder={'search'} placeholderTextColor={'rgba(255,255,255,0.5)'}
-          inputStyle={[styles.cWhite]}
-          icon={{name: "vpn-key", color: '#FFF', size: 24}}
+          borderBottomColor={'#48487B'}
+          placeholder={'search'} placeholderTextColor={'rgba(72,72,123,0.5)'}
+          inputStyle={[styles.cAppDark]}
+          icon={{name: "search", color: '#48487B', size: 24}}
           onChangeText={this.onChangeText()}/>
       </View>
     );

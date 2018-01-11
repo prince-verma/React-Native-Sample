@@ -5,7 +5,7 @@ export default function displaySnackbar(message, confirmText, onConfirm) {
     showSnackBar({
       message,
       textColor: '#FFF',
-      position: 'bottom',
+      position: 'top',
       onConfirm: confirmText && onConfirm,
       confirmText: onConfirm && confirmText ? confirmText : '',
       buttonColor: '#03a9f4',
