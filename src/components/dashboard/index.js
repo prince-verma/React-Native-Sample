@@ -73,12 +73,18 @@ export default class Dashboard extends React.Component {
 
   render() {
     const {selectedIndex, data, fetchingData, username} = this.state;
+    let textBoxStyle = [styles.cWhite, styles.font18];
 
     return (
       <Authenticate navigation={this.props.navigation}>
         <View style={styles.f1}>
-          <View style={[styles.header]}>
-            <Button.Transparent text="Logout" onPress={this.logout}/>
+          <View style={[styles.header, styles.ph10]}>
+            <Text style={textBoxStyle}>Search screen</Text>
+            <Button.Transparent
+              text="Logout"
+              icon={"power-settings-new"}
+              iconSize={24}
+              onPress={this.logout}/>
           </View>
           <SearchView username={username} onChange={this.onChange}/>
           <View style={[styles.f1]}>

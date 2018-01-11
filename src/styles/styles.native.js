@@ -272,6 +272,7 @@ module.exports = StyleSheet.create({
   header: {
     backgroundColor: "#46407B",
     flexDirection:"row",
-    alignItems: "flex-end"
+    alignItems:"center",
+    justifyContent: "space-between"
   }
 });

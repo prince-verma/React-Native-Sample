@@ -1,16 +1,6 @@
 import React from "react";
-import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import {View, Text, TouchableOpacity} from "react-native";
 import styles from '../../styles/styles.native';
-
-function RowValue({item, value}) {
-  let val = value.charAt(0).toUpperCase() + value.substr(1).toLowerCase();
-  return (
-    <Text style={[styles.mb5]}>
-      <Text style={[styles.cGrey, styles.bold]}>{val}: </Text>
-      <Text style={[styles.cGrey]}> {item[value]}</Text>
-    </Text>
-  );
-}
 
 export default class ListItem extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -43,13 +33,13 @@ export default class ListItem extends React.Component {
           {
             selected ?
               <View style={rowInfoContainer}>
-                <RowValue item={item} value="population"/>
-                <RowValue item={item} value="climate"/>
-                <RowValue item={item} value="diameter"/>
-                <RowValue item={item} value="gravity"/>
-                <RowValue item={item} value="rotation_period"/>
-                <RowValue item={item} value="surface_water"/>
-                <RowValue item={item} value="terrain"/>
+                <RowComponent item={item} keyValue="population"/>
+                <RowComponent item={item} keyValue="climate"/>
+                <RowComponent item={item} keyValue="diameter"/>
+                <RowComponent item={item} keyValue="gravity"/>
+                <RowComponent item={item} keyValue="rotation_period"/>
+                <RowComponent item={item} keyValue="surface_water"/>
+                <RowComponent item={item} keyValue="terrain"/>
               </View> : null
           }
         </TouchableOpacity>
@@ -59,18 +49,12 @@ export default class ListItem extends React.Component {
   }
 }
 
-const styles1 = StyleSheet.create({
-  row: {
-    padding: 10,
-    margin: 3,
-    backgroundColor: "#fff",
-    elevation: 1
-  },
-  rowHeading: {
-    fontWeight: "bold"
-  },
-
-  rowInfo: {
-    marginBottom: 5
-  }
-});
+function RowComponent({item, keyValue}) {
+  let val = keyValue.charAt(0).toUpperCase() + keyValue.substr(1).toLowerCase();
+  return (
+    <Text style={[styles.mb5]}>
+      <Text style={[styles.cGrey, styles.bold]}>{val}: </Text>
+      <Text style={[styles.cGrey]}> {item[keyValue]}</Text>
+    </Text>
+  );
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import {View} from "react-native";
-import {showSnackbar, Input} from '../../common'
+import {showSnackbar, Input, width} from '../../common'
 import styles from '../../styles/styles.native';
 
 export default class SearchView extends React.Component {
@@ -40,6 +40,7 @@ export default class SearchView extends React.Component {
     return (
       <View style={[styles.mb15]}>
         <Input
+          width={width-30}
           borderBottomColor={'#48487B'}
           placeholder={'search'} placeholderTextColor={'rgba(72,72,123,0.5)'}
           inputStyle={[styles.cAppDark]}
