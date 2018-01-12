@@ -23,7 +23,7 @@ export default class Dashboard extends React.Component {
   }
 
   logout = () => {
-    showSnackbar("Are you sure to logout from application.","YES",()=>{
+    showSnackbar("Are you sure to logout from application.", "YES", () => {
       Storage.remove(USER_KEY);
       this.props.navigation.dispatch(getResetAction("Login"));
     });
@@ -76,12 +76,13 @@ export default class Dashboard extends React.Component {
   render() {
     const {selectedIndex, data, fetchingData, username} = this.state;
     let textBoxStyle = [styles.cWhite, styles.font18];
+    let noResultTextStyle = [styles.cBlack, styles.font20];
 
     return (
       <Authenticate navigation={this.props.navigation}>
         <View style={styles.f1}>
           <View style={[styles.header, styles.ph10]}>
-            <Text style={textBoxStyle}>Search screen</Text>
+            <Text style={textBoxStyle}>Planets</Text>
             <Button.Transparent
               text="Logout"
               icon={"power-settings-new"}
@@ -99,7 +100,9 @@ export default class Dashboard extends React.Component {
             {
               (!fetchingData && data.length === 0) ?
                 <View style={[StyleSheet.absoluteFill, styles.center]}>
-                  <Text>Nothing to show here.</Text>
+                  <Text style={noResultTextStyle}>
+                    Nothing to show here for given key-words.
+                  </Text>
                 </View> : null
             }
             {fetchingData ? <ActivityIndicator color="#46407B" style={[StyleSheet.absoluteFill]}/> : null}
